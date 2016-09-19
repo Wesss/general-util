@@ -1,4 +1,6 @@
 package org.util.test;
+
+import com.sun.istack.internal.Nullable;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 
@@ -8,11 +10,12 @@ import java.util.function.Predicate;
 
 public class LambdaMatcher<T> extends BaseMatcher<T> {
 
-    // TODO have error message change to show uncaught exceptions in the matches method
-
-    Predicate<T> matchingPredicate;
-    Consumer<Description>      expectedDescriptor;
-    BiConsumer<T, Description> mismatchDescriptor;
+    private Predicate<T> matchingPredicate;
+    private Consumer<Description> expectedDescriptor;
+    private BiConsumer<T, Description> mismatchDescriptor;
+    private
+    @Nullable
+    Exception thrownMatchException;
 
     public LambdaMatcher(Predicate<T> matchingPredicate,
                          Consumer<Description> expectedDescriptor,
@@ -20,13 +23,16 @@ public class LambdaMatcher<T> extends BaseMatcher<T> {
         this.matchingPredicate = matchingPredicate;
         this.expectedDescriptor = expectedDescriptor;
         this.mismatchDescriptor = mismatchDescriptor;
+        thrownMatchException = null;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public boolean matches(Object item) {
         try {
             return matchingPredicate.test((T) item);
         } catch (Exception e) {
+            thrownMatchException = e;
             return false;
         }
     }
@@ -36,18 +42,16 @@ public class LambdaMatcher<T> extends BaseMatcher<T> {
         expectedDescriptor.accept(description);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void describeMismatch(Object item, Description description) {
-        T typedItem;
-        try {
-            typedItem = (T) item;
-        } catch (Exception e) {
-            description.appendText("item could not be cast to inferred type");
+        if (thrownMatchException != null) {
+            description.appendText("matching predicate threw Exception: " + thrownMatchException);
             return;
         }
 
         try {
-            mismatchDescriptor.accept(typedItem, description);
+            mismatchDescriptor.accept((T) item, description);
         } catch (Exception e) {
             description.appendText("mismatch descriptor threw exception: " + e);
         }

@@ -1,7 +1,7 @@
 package org.util.math;
 
 /**
- *  The Math class contains static methods for computing various functions
+ * The Math class contains static methods for computing various functions
  */
 public class Math {
     /**
@@ -15,11 +15,12 @@ public class Math {
         if (a == 0)
             return b;
 
-        return gcd (b % a, a);
+        return gcd(b % a, a);
     }
 
     /**
      * Returns the truncated length of the hypotenuse of a right triangle
+     *
      * @param x the length of the triangle's base
      * @param y the length of the triangle's height
      * @return the truncated length of the triangle's hypotenuse
@@ -29,7 +30,6 @@ public class Math {
     }
 
     /**
-     *
      * @param x
      * @param modulus
      * @return the value, y, in the range [0, modulus) such that (y mod modulus == x mod modulus)
