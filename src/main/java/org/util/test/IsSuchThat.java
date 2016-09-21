@@ -7,9 +7,10 @@ import java.util.function.Predicate;
 
 import static org.mockito.Matchers.argThat;
 
+/**
+ * IsSuchThat contains static methods for creating matchers for hamcrest and mockito using lambdas
+ */
 public class IsSuchThat {
-
-    // TODO IsSuchThat documentation
 
     private static final String DEFAULT_EXPECTED_BEHAVIOR_DESCRIPTION = "a value matching given predicate";
     private static final String DEFAULT_FAILED_DESCRIPTION = "did not match";
@@ -17,7 +18,7 @@ public class IsSuchThat {
     /**
      * @param matchingPredicate
      * @param <V>
-     * @return
+     * @return a matcher that matches values such that the given predicate returns true when given said value.
      */
     public static <V> Matcher<V> isSuchThat(Predicate<V> matchingPredicate) {
         return new LambdaMatcher<>(matchingPredicate,
@@ -27,9 +28,9 @@ public class IsSuchThat {
 
     /**
      * @param matchingPredicate
-     * @param expectedBehavior
+     * @param expectedBehavior the expected clause to be displayed on assertion error
      * @param <V>
-     * @return
+     * @return a matcher that matches values such that the given predicate returns true when given said value.
      */
     public static <V> Matcher<V> isSuchThat(Predicate<V> matchingPredicate,
                                             String expectedBehavior) {
@@ -40,10 +41,10 @@ public class IsSuchThat {
 
     /**
      * @param matchingPredicate
-     * @param expectedBehavior
-     * @param failureDescription
+     * @param expectedBehavior the 'expected' clause to be displayed on assertion error
+     * @param failureDescription the 'but' clause to be displayed on assertion error
      * @param <V>
-     * @return
+     * @return a matcher that matches values such that the given predicate returns true when given said value.
      */
     public static <V> Matcher<V> isSuchThat(Predicate<V> matchingPredicate,
                                             String expectedBehavior,
@@ -55,10 +56,10 @@ public class IsSuchThat {
 
     /**
      * @param matchingPredicate
-     * @param expectedBehavior
-     * @param failureDescriptionFunction
+     * @param expectedBehavior the 'expected' clause to be displayed on assertion error
+     * @param failureDescriptionFunction a function that will be used to produce the 'but' clause given the mismatched value
      * @param <V>
-     * @return
+     * @return a matcher that matches values such that the given predicate returns true when given said value.
      */
     public static <V> Matcher<V> isSuchThat(Predicate<V> matchingPredicate,
                                             String expectedBehavior,
@@ -69,11 +70,13 @@ public class IsSuchThat {
     }
 
     /**
-     * For mockito argument matchers
+     * Use as a "matcher" for mockito arguments that matches that matches values such that the given predicate
+     * returns true when given said value.
      *
      * @param matchingPredicate
      * @param <V>
      * @return
+     * @see org.mockito.Matchers#argThat(Matcher)
      */
     public static <V> V argSuchThat(Predicate<V> matchingPredicate) {
         return argThat(isSuchThat(matchingPredicate));
