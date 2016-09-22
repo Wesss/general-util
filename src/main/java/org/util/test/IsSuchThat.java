@@ -28,7 +28,7 @@ public class IsSuchThat {
 
     /**
      * @param matchingPredicate
-     * @param expectedBehavior the expected clause to be displayed on assertion error
+     * @param expectedBehavior  the expected clause to be displayed on assertion error
      * @param <V>
      * @return a matcher that matches values such that the given predicate returns true when given said value.
      */
@@ -41,7 +41,7 @@ public class IsSuchThat {
 
     /**
      * @param matchingPredicate
-     * @param expectedBehavior the 'expected' clause to be displayed on assertion error
+     * @param expectedBehavior   the 'expected' clause to be displayed on assertion error
      * @param failureDescription the 'but' clause to be displayed on assertion error
      * @param <V>
      * @return a matcher that matches values such that the given predicate returns true when given said value.
@@ -56,7 +56,7 @@ public class IsSuchThat {
 
     /**
      * @param matchingPredicate
-     * @param expectedBehavior the 'expected' clause to be displayed on assertion error
+     * @param expectedBehavior           the 'expected' clause to be displayed on assertion error
      * @param failureDescriptionFunction a function that will be used to produce the 'but' clause given the mismatched value
      * @param <V>
      * @return a matcher that matches values such that the given predicate returns true when given said value.
