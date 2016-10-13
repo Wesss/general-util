@@ -2,12 +2,12 @@ package org.util.collection;
 
 import java.util.*;
 
-public class KeyToSetOfValues <K, V> {
+public class MapToSets<K, V> {
 
     private HashMap<K, HashSet<V>> keyToValues;
     private HashMap<V, K> valueToKey;
 
-    public KeyToSetOfValues() {
+    public MapToSets() {
         keyToValues = new HashMap<>();
         valueToKey = new HashMap<>();
     }
