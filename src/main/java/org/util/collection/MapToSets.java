@@ -5,20 +5,8 @@ import java.util.*;
 public class MapToSets<K, V> {
 
     /*
-     * valueToKey != null
-     * for each (value --> key) pair in valueToKey
-     * 		keyToValue.get(key) contains value
-     *
-     * keyToValue != null
-     * for each (key --> values) pair in keyToValue.keyset()
-     * 		key >= 0
-     * 		values != null
-     * 		values.isEmpty
-     * 		for each value being stored within values
-     * 			value != null
-     * 			value also exists in priorityToValue
-     * 			value also exists in valueToKey, valueToPriority, priorityToValue
-     * 			value does not exist anywhere else in keyToValue
+     * For every (K, V) pair present:
+     *      V must be the only unique V
      */
     private HashMap<K, HashSet<V>> keyToValues;
     private HashMap<V, K> valueToKey;
@@ -69,6 +57,10 @@ public class MapToSets<K, V> {
     }
 
     public void put(K key, V value) {
+        if (valueToKey.keySet().contains(value)) {
+            remove(valueToKey.get(value), value);
+        }
+
         if (!keyToValues.containsKey(key))
             keyToValues.put(key, new HashSet<>());
         keyToValues.get(key).add(value);
@@ -85,6 +77,8 @@ public class MapToSets<K, V> {
 
         return wasRemoved;
     }
+
+    //TODO maptoSet removeKey and removeValue
 
     public void clear() {
         keyToValues.clear();
