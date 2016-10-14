@@ -4,6 +4,22 @@ import java.util.*;
 
 public class MapToSets<K, V> {
 
+    /*
+     * valueToKey != null
+     * for each (value --> key) pair in valueToKey
+     * 		keyToValue.get(key) contains value
+     *
+     * keyToValue != null
+     * for each (key --> values) pair in keyToValue.keyset()
+     * 		key >= 0
+     * 		values != null
+     * 		values.isEmpty
+     * 		for each value being stored within values
+     * 			value != null
+     * 			value also exists in priorityToValue
+     * 			value also exists in valueToKey, valueToPriority, priorityToValue
+     * 			value does not exist anywhere else in keyToValue
+     */
     private HashMap<K, HashSet<V>> keyToValues;
     private HashMap<V, K> valueToKey;
 
@@ -31,7 +47,7 @@ public class MapToSets<K, V> {
     /**
      * Duplicates allowed
      */
-    public ArrayList values() {
+    public ArrayList<V> values() {
         ArrayList<V> values = new ArrayList<>();
         for (K key : keySet()) {
             values.addAll(keyToValues.get(key));
@@ -40,7 +56,12 @@ public class MapToSets<K, V> {
     }
 
     public Set<V> get(K key) {
-        return new HashSet<>(keyToValues.get(key));
+        Set<V> resultSet = keyToValues.get(key);
+        if (resultSet == null) {
+            return null;
+        } else {
+            return new HashSet<>(resultSet);
+        }
     }
 
     public K getKey(V value) {
