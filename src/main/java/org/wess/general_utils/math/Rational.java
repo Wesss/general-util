@@ -1,9 +1,9 @@
-package org.util.math;
+package org.wess.general_utils.math;
 
 import java.util.Objects;
 
 import static java.lang.Math.*;
-import static org.util.math.Math.gcd;
+import static org.wess.general_utils.math.Math.gcd;
 
 /**
  * Rational objects represent rational numbers. These are numbers

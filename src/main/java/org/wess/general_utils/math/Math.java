@@ -1,4 +1,4 @@
-package org.util.math;
+package org.wess.general_utils.math;
 
 /**
  * The Math class contains static methods for computing various functions

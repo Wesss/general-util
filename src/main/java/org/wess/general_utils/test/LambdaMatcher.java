@@ -1,4 +1,4 @@
-package org.util.test;
+package org.wess.general_utils.test;
 
 import com.sun.istack.internal.Nullable;
 import org.hamcrest.BaseMatcher;
