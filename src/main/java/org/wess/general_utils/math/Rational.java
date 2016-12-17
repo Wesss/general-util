@@ -3,7 +3,7 @@ package org.wess.general_utils.math;
 import java.util.Objects;
 
 import static java.lang.Math.*;
-import static org.wess.general_utils.math.Math.gcd;
+import static org.wess.general_utils.math.MathUtils.gcd;
 
 /**
  * Rational objects represent rational numbers. These are numbers

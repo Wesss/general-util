@@ -1,9 +1,9 @@
 package org.wess.general_utils.math;
 
 /**
- * The Math class contains static methods for computing various functions
+ * The MathUtils class contains static methods for computing various functions
  */
-public class Math {
+public class MathUtils {
     /**
      * Returns the greatest common denominator between the given integers
      *

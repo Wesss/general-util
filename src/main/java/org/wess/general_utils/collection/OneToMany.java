@@ -2,7 +2,7 @@ package org.wess.general_utils.collection;
 
 import java.util.*;
 
-public class MapToSets<K, V> {
+public class OneToMany<K, V> {
 
     /*
      * For every (K, V) pair present:
@@ -11,7 +11,7 @@ public class MapToSets<K, V> {
     private HashMap<K, HashSet<V>> keyToValues;
     private HashMap<V, K> valueToKey;
 
-    public MapToSets() {
+    public OneToMany() {
         keyToValues = new HashMap<>();
         valueToKey = new HashMap<>();
     }
@@ -78,7 +78,7 @@ public class MapToSets<K, V> {
         return wasRemoved;
     }
 
-    //TODO maptoSet removeKey and removeValue
+    //TODO onetomany removeKey
 
     public void clear() {
         keyToValues.clear();
