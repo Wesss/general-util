@@ -1,9 +1,8 @@
-package org.wess.general_utils.math;
+package org.wesss.general_utils.math;
 
 import java.util.Objects;
 
 import static java.lang.Math.*;
-import static org.wess.general_utils.math.MathUtils.gcd;
 
 /**
  * Rational objects represent rational numbers. These are numbers
@@ -53,7 +52,7 @@ public class Rational implements Comparable<Rational> {
             d *= -1;
         }
 
-        int gcd = gcd(n, d);
+        int gcd = MathUtils.gcd(n, d);
         num = n / gcd;
         den = d / gcd;
     }

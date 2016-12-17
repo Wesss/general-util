@@ -1,4 +1,4 @@
-package org.wess.general_utils.random;/* stats for later modification
+package org.wesss.general_utils.random;/* stats for later modification
 
   plus refers to ModulationPlus,
   dif refers to aprx. max difference between picking of 2 values over 1000 picks
@@ -9,7 +9,7 @@ package org.wess.general_utils.random;/* stats for later modification
 */
 
 
-import org.wess.general_utils.math.Rational;
+import org.wesss.general_utils.math.Rational;
 
 import java.util.Random;
 

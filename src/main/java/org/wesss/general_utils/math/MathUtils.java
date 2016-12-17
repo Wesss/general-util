@@ -1,4 +1,4 @@
-package org.wess.general_utils.math;
+package org.wesss.general_utils.math;
 
 /**
  * The MathUtils class contains static methods for computing various functions

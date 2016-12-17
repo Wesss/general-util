@@ -1,4 +1,4 @@
-package org.wess.general_utils.random;
+package org.wesss.general_utils.random;
 
 import java.util.Random;
 

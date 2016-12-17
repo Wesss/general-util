@@ -1,4 +1,4 @@
-package org.wess.general_utils.collection;
+package org.wesss.general_utils.collection;
 
 import java.util.*;
 
