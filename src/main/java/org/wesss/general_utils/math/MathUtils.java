@@ -1,5 +1,7 @@
 package org.wesss.general_utils.math;
 
+import static java.lang.Math.sqrt;
+
 /**
  * The MathUtils class contains static methods for computing various functions
  */
@@ -12,6 +14,12 @@ public class MathUtils {
      * @return the largest positive integer that can divide both a and b into whole numbers
      */
     public static int gcd(int a, int b) {
+        if (a < 0) {
+            return gcd(-a, b);
+        } else if (b < 0) {
+            return gcd(a, -b);
+        }
+
         if (a == 0)
             return b;
 
@@ -26,15 +34,19 @@ public class MathUtils {
      * @return the truncated length of the triangle's hypotenuse
      */
     public static int hypotenuse(int x, int y) {
-        return (int) java.lang.Math.sqrt((x * x) + (y * y));
+        return (int) sqrt((x * x) + (y * y));
     }
 
     /**
      * @param x
      * @param modulus
-     * @return the value, y, in the range [0, modulus) such that (y mod modulus == x mod modulus)
+     * @return the value, y, in the range [0, |modulus|) such that (y mod modulus == x mod modulus)
      */
     public static int modPos(int x, int modulus) {
+        if (modulus < 0) {
+            return modPos(x, -modulus);
+        }
+
         int result = x;
 
         while (result < 0) {
