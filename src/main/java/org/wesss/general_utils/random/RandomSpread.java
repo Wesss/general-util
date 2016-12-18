@@ -44,7 +44,8 @@ public class RandomSpread {
 
 
     private int marbleTypeCount;
-    private int[] marbles;
+    private MarbleBag marbleBag;
+
     private int modPlus;
     private int modBase;
 
@@ -79,53 +80,36 @@ public class RandomSpread {
 
         //spreadStrength is interpreted as (modPlus/modBase)
         marbleTypeCount = count;
+        marbleBag = new MarbleBag(marbleTypeCount);
+
         Rational aprx = Rational.convertDouble(spreadStrength);
         modPlus = aprx.numer();
         modBase = aprx.denom();
 
-        marbles = new int[marbleTypeCount];
-        for (int i = 0; i < marbleTypeCount; i++) {
-            marbles[i] = modBase;
+        for (int type = 0; type < marbleTypeCount; type++) {
+            // TODO marble bag remove multiple
+            marbleBag.addMarbles(type, modBase);
         }
     }
 
     /**
-     * @return a random number from 0 to (initialized count), with bias
-     * towards numbers less picked since initialization.
+     * @return the type of the marble picked
      */
     public int next() {
-        int[] maxPerType = new int[marbleTypeCount];
-        int[] minPerType = new int[marbleTypeCount];
-
-        //setup marble bag
-        int marbleCount = 0;
-        for (int i = 0; i < marbleTypeCount; i++) {
-            minPerType[i] = marbleCount;
-            marbleCount = marbleCount + marbles[i];
-            maxPerType[i] = marbleCount - 1;
-        }
-
         //pick a marble
-        int chosenMarble = random.nextInt(marbleCount);
-
-        int chosenValue = -1; //does not exist
-        for (int i = 0; chosenValue < 0; i++) {
-            if (chosenMarble >= minPerType[i] && chosenMarble <= maxPerType[i]) {
-                chosenValue = i;
-            }
-        }
+        int chosenType = marbleBag.pickMarble();
 
         //modify chances
-        if (marbles[chosenValue] > modBase) {
-            marbles[chosenValue] = marbles[chosenValue] - modPlus;
+        if (marbleBag.getMarbleCount(chosenType) > modBase) {
+            marbleBag.removeMarbles(chosenType, modBase);
         } else {
-            for (int i = 0; i < marbleTypeCount; i++) {
-                if (i != chosenValue) {
-                    marbles[i] = marbles[i] + modPlus;
+            for (int type = 0; type < marbleTypeCount; type++) {
+                if (type != chosenType) {
+                    marbleBag.addMarbles(type, modBase);
                 }
             }
         }
 
-        return chosenValue;
+        return chosenType;
     }
 }
