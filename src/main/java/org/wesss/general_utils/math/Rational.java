@@ -80,7 +80,7 @@ public class Rational implements Comparable<Rational> {
      *
      * @return true if this > 0, false otherwise
      */
-    public boolean isPos() {
+    public boolean isPositive() {
         return (num > 0);
     }
 
@@ -91,6 +91,15 @@ public class Rational implements Comparable<Rational> {
      */
     public boolean isZero() {
         return (num == 0);
+    }
+
+    /**
+     * Checks for a negative
+     *
+     * @return true if this < 0, false otherwise
+     */
+    public boolean isNegative() {
+        return (num < 0);
     }
 
     /**

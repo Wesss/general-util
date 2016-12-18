@@ -61,6 +61,8 @@ public class RandomSpread {
     }
 
     /**
+     * TODO fix RandomSpread documentation formatting
+     *
      * Creates a new RandomSpread object to return a stream of random integers from 0 to count,
      * in a controlled spread based on spreadStrength.
      * <p>
@@ -68,26 +70,32 @@ public class RandomSpread {
      * spreadStrength --> inifity     == the total counts of each int returned will never surpass each other by 1
      *
      * @param count the upper exclusive bound of random integer generation
-     * @param spreadStrength   a double that determine of the ratio of "control" over the randomness
+     * @param spreadStrength the strength of the spread "control" over the randomness
      *              <p> count must be at least 1, spreadStrength must be greater than 0
      */
     public RandomSpread(int count, double spreadStrength) {
-        if (spreadStrength <= 0)
-            throw new IllegalArgumentException("RandomSpread initialized with modularity " + spreadStrength);
-        if (count < 1)
-            throw new IllegalArgumentException("RandomSpread initialized to count " + count
-                    + "arguments");
+        this(count, Rational.convertDouble(spreadStrength));
+    }
 
-        //spreadStrength is interpreted as (modPlus/modBase)
+    /**
+     * @see org.wesss.general_utils.random.RandomSpread#RandomSpread(int, double)
+     */
+    public RandomSpread(int count, Rational spreadStrength) {
+        if (spreadStrength.isNegative())
+            throw new IllegalArgumentException("RandomSpread initialized with negative spreadStrength "
+                    + spreadStrength);
+        if (count < 1)
+            throw new IllegalArgumentException("RandomSpread initialized to non-positive count "
+                    + count + "arguments");
+
         marbleTypeCount = count;
         marbleBag = new MarbleBag(marbleTypeCount);
 
-        Rational aprx = Rational.convertDouble(spreadStrength);
-        modPlus = aprx.numer();
-        modBase = aprx.denom();
+        //spreadStrength is interpreted as (modPlus/modBase)
+        modPlus = spreadStrength.numer();
+        modBase = spreadStrength.denom();
 
         for (int type = 0; type < marbleTypeCount; type++) {
-            // TODO marble bag remove multiple
             marbleBag.addMarbles(type, modBase);
         }
     }
@@ -101,11 +109,11 @@ public class RandomSpread {
 
         //modify chances
         if (marbleBag.getMarbleCount(chosenType) > modBase) {
-            marbleBag.removeMarbles(chosenType, modBase);
+            marbleBag.removeMarbles(chosenType, modPlus);
         } else {
             for (int type = 0; type < marbleTypeCount; type++) {
                 if (type != chosenType) {
-                    marbleBag.addMarbles(type, modBase);
+                    marbleBag.addMarbles(type, modPlus);
                 }
             }
         }
