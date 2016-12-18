@@ -16,20 +16,17 @@ import java.util.Random;
 /**
  * A RandomSpread object generates a stream of random numbers from 0 to some
  * maximum count with bias towards numbers picked less often.
- *
- * @author Wesley Cox
- * @last_edited 11/11/2015
  */
 public class RandomSpread {
     private static final boolean DEBUG = false;
 
     private static final Random random = new Random();
 
-    /**
+    /*
      * A RandomSpread object is thought of as a bag of marbles of different types,
      * where each type represents an integer. Picking a random number is analogous
      * to picking a random marble from this bag.
-     * <p>
+     *
      * Represented by:
      * marbleTypeCount: the number of different marbles types in our scope.
      * for (int i = 0; i < marbleTypeCount; i++)
@@ -51,11 +48,6 @@ public class RandomSpread {
     private int modPlus;
     private int modBase;
 
-    //TESTING stores different types of statistics to be printed
-    private int valueCount[];
-    private int returnStream[] = new int[50];
-    private int maxDifference = 0;
-
     /**
      * Creates a new RandomSpread object to return a stream of random integers from 0 to count,
      * in a controlled spread (Default mod of 1, see RandomSpread(int count, double mod))
@@ -69,40 +61,31 @@ public class RandomSpread {
 
     /**
      * Creates a new RandomSpread object to return a stream of random integers from 0 to count,
-     * in a controlled spread based on mod.
+     * in a controlled spread based on spreadStrength.
      * <p>
-     * mod --> 0        == no enforced spread
-     * mod --> inifity     == the total counts of each int returned will never surpass each other by 1
+     * spreadStrength --> 0        == no enforced spread
+     * spreadStrength --> inifity     == the total counts of each int returned will never surpass each other by 1
      *
-     * @param count the upper non-exclusive bound of random integer generation
-     * @param mod   a double that determine of the ratio of "control" over the randomness
-     *              <p> count must be at least 1, mod must be greater than 0
+     * @param count the upper exclusive bound of random integer generation
+     * @param spreadStrength   a double that determine of the ratio of "control" over the randomness
+     *              <p> count must be at least 1, spreadStrength must be greater than 0
      */
-    public RandomSpread(int count, double mod) {
-        if (mod <= 0)
-            throw new IllegalArgumentException("RandomSpread initialized with modularity " + mod);
+    public RandomSpread(int count, double spreadStrength) {
+        if (spreadStrength <= 0)
+            throw new IllegalArgumentException("RandomSpread initialized with modularity " + spreadStrength);
         if (count < 1)
             throw new IllegalArgumentException("RandomSpread initialized to count " + count
                     + "arguments");
 
-        //mod is interpreted as (modPlus/modBase)
+        //spreadStrength is interpreted as (modPlus/modBase)
         marbleTypeCount = count;
-        Rational aprx = Rational.convertDouble(mod);
+        Rational aprx = Rational.convertDouble(spreadStrength);
         modPlus = aprx.numer();
         modBase = aprx.denom();
 
         marbles = new int[marbleTypeCount];
-        valueCount = new int[marbleTypeCount];
         for (int i = 0; i < marbleTypeCount; i++) {
             marbles[i] = modBase;
-        }
-
-        if (DEBUG) {
-            for (int i = 0; i < marbleTypeCount; i++) {
-                valueCount[i] = 0;
-            }
-            returnStream = new int[50];
-            maxDifference = 0;
         }
     }
 
@@ -143,46 +126,6 @@ public class RandomSpread {
             }
         }
 
-        if (DEBUG)
-            printStats(chosenValue);
         return chosenValue;
-    }
-
-    /**
-     * Prints out the current state of the generator
-     * <p>
-     * last 50 picked numbers
-     * current amount of "marbles" of each type
-     * total amount of times each value has been returned
-     * largest difference ever between amount of returned values
-     */
-    public void printStats(int chosenValue) {
-        for (int i = 0; i < 6; i++)
-            System.out.println();
-
-        for (int i = 49; i > 0; i--) {
-            returnStream[i] = returnStream[i - 1];
-        }
-        returnStream[0] = chosenValue;
-        System.out.print("Picked Values: ");
-        for (int i = 0; i < 50; i++) {
-            System.out.print(returnStream[i] + " ");
-        }
-        System.out.println();
-        System.out.println();
-
-        valueCount[chosenValue] += 1;
-        for (int i = 0; i < marbleTypeCount; i++) {
-            System.out.println(i + "- " + marbles[i] + "- " + valueCount[i]);
-        }
-
-        int max = Math.max(valueCount[0], valueCount[1]);
-        int min = Math.min(valueCount[0], valueCount[1]);
-        for (int i = 2; i < marbleTypeCount; i++) {
-            max = Math.max(max, valueCount[i]);
-            min = Math.min(min, valueCount[i]);
-        }
-        maxDifference = Math.max(max - min, maxDifference);
-        System.out.println("Max difference: " + maxDifference);
     }
 }
