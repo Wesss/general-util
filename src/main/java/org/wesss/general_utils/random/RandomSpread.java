@@ -1,4 +1,8 @@
-package org.wesss.general_utils.random;/* stats for later modification
+package org.wesss.general_utils.random;
+
+import org.wesss.general_utils.math.Rational;
+
+/* stats for later modification
 
   plus refers to ModulationPlus,
   dif refers to aprx. max difference between picking of 2 values over 1000 picks
@@ -7,9 +11,6 @@ package org.wesss.general_utils.random;/* stats for later modification
   plus = 10^(dif/11)  10 <= p <= 1000
 
 */
-
-
-import org.wesss.general_utils.math.Rational;
 
 /**
  * A RandomSpread object generates a stream of random numbers from 0 to some
@@ -24,7 +25,7 @@ public class RandomSpread {
 
     /**
      * Creates a new RandomSpread object to return a stream of random integers from 0 to count,
-     * in a controlled spread (Default mod of 1, see RandomSpread(int count, double mod))
+     * in a controlled spread (Default spreadStrength of 1, see RandomSpread(int count, double mod))
      *
      * @param count the upper non-exclusive bound of random integer generation
      *              <p> count must be at least 1
@@ -40,7 +41,8 @@ public class RandomSpread {
      * in a controlled spread based on spreadStrength.
      * <p>
      * spreadStrength --> 0        == no enforced spread
-     * spreadStrength --> inifity     == the total counts of each int returned will never surpass each other by 1
+     * <p>
+     * spreadStrength --> infinity     == the total counts of each int returned will never surpass each other by 1
      *
      * @param count the upper exclusive bound of random integer generation
      * @param spreadStrength the strength of the spread "control" over the randomness
