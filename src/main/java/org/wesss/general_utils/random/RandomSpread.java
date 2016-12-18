@@ -11,41 +11,14 @@ package org.wesss.general_utils.random;/* stats for later modification
 
 import org.wesss.general_utils.math.Rational;
 
-import java.util.Random;
-
 /**
  * A RandomSpread object generates a stream of random numbers from 0 to some
  * maximum count with bias towards numbers picked less often.
  */
 public class RandomSpread {
-    private static final boolean DEBUG = false;
-
-    private static final Random random = new Random();
-
-    /*
-     * A RandomSpread object is thought of as a bag of marbles of different types,
-     * where each type represents an integer. Picking a random number is analogous
-     * to picking a random marble from this bag.
-     *
-     * Represented by:
-     * marbleTypeCount: the number of different marbles types in our scope.
-     * for (int i = 0; i < marbleTypeCount; i++)
-     * marbles[i]: the number of marbles in the bag of type i
-     * modBase: the minimum amount of (marbles per type) in the bag at any time
-     * modPlus: the number of (marbles per type) added or removed from the bag
-     * after each pick
-     * <p>
-     * Representation Invariant:
-     * marbleType count >= 1;
-     * for (int i = 0; i < marbleTypeCount; i++)
-     * marble[i] >= modBase;
-     * (marble[i] - modBase) % modPlus == 0;
-     */
-
 
     private int marbleTypeCount;
     private MarbleBag marbleBag;
-
     private int modPlus;
     private int modBase;
 
