@@ -5,7 +5,7 @@ import java.util.Collections;
 
 public class CollectionFactory {
     @SafeVarargs
-    public static <T> ArrayList<T> ArrayListOf(T... elements) {
+    public static <T> ArrayList<T> arrayListOf(T... elements) {
         ArrayList<T> result = new ArrayList<>();
         Collections.addAll(result, elements);
         return result;
