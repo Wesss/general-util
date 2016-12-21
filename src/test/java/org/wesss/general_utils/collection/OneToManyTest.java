@@ -18,6 +18,9 @@ public class OneToManyTest {
         assertThat(intToStrings.isEmpty(), is(true));
         assertThat(intToStrings.containsKey(0), is(false));
         assertThat(intToStrings.containsValue("zero"), is(false));
+
+        assertThat(intToStrings.get(0), empty());
+        assertThat(intToStrings.getKey("zero"), nullValue());
     }
 
     @Test
@@ -47,5 +50,52 @@ public class OneToManyTest {
         assertThat(intToStrings.getKey("ZERO"), is(0));
     }
 
-    // TODO OneToMany remove/clear tests
+    @Test
+    public void addingValueSecondTimeRemovesFirstKeyValuePair() {
+        String zero = "zero";
+        intToStrings.put(0, zero);
+        intToStrings.put(1, zero);
+
+        assertThat(intToStrings.isEmpty(), is(false));
+        assertThat(intToStrings.containsKey(0), is(false));
+        assertThat(intToStrings.containsKey(1), is(true));
+        assertThat(intToStrings.containsValue("zero"), is(true));
+
+        assertThat(intToStrings.get(1), hasItem("zero"));
+        assertThat(intToStrings.get(0), empty());
+        assertThat(intToStrings.getKey("zero"), is(1));
+    }
+
+    @Test
+    public void removeNothingDoesNothing() {
+        boolean removed = intToStrings.remove(0, "zero");
+
+        assertThat(removed, is(false));
+        assertThat(intToStrings.isEmpty(), is(true));
+        assertThat(intToStrings.containsKey(0), is(false));
+        assertThat(intToStrings.containsValue("zero"), is(false));
+    }
+
+    @Test
+    public void removeRemovesKeyValuePair() {
+        intToStrings.put(0, "zero");
+        boolean removed = intToStrings.remove(0, "zero");
+
+        assertThat(removed, is(true));
+        assertThat(intToStrings.isEmpty(), is(true));
+        assertThat(intToStrings.containsKey(0), is(false));
+        assertThat(intToStrings.containsValue("zero"), is(false));
+    }
+
+    @Test
+    public void clearClearsAllKeyValuePairs() {
+        intToStrings.put(0, "zero");
+        intToStrings.put(0, "ZERO");
+        intToStrings.clear();
+
+        assertThat(intToStrings.isEmpty(), is(true));
+        assertThat(intToStrings.containsKey(0), is(false));
+        assertThat(intToStrings.containsValue("zero"), is(false));
+        assertThat(intToStrings.containsValue("ZERO"), is(false));
+    }
 }

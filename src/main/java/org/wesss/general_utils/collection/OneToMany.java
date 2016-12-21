@@ -75,6 +75,10 @@ public class OneToMany<K, V> {
     }
 
     public boolean remove(K key, V value) {
+        if (!keyToValues.containsKey(key)) {
+            return false;
+        }
+
         valueToKey.remove(value);
         boolean wasRemoved = keyToValues.get(key).remove(value);
         if (keyToValues.get(key).isEmpty()) {
