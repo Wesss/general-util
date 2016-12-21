@@ -35,8 +35,6 @@ public class RandomSpread {
     }
 
     /**
-     * TODO fix RandomSpread documentation formatting
-     *
      * Creates a new RandomSpread object to return a stream of random integers from 0 to count,
      * in a controlled spread based on spreadStrength.
      * <p>

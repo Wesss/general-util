@@ -2,11 +2,17 @@ package org.wesss.general_utils.collection;
 
 import java.util.*;
 
+/**
+ * Represents a collection where each key has several associated values
+ * @param <K> the key type
+ * @param <V> the value type
+ */
 public class OneToMany<K, V> {
 
     /*
      * For every (K, V) pair present:
      *      V must be the only unique V
+     * TODO enforce unique values
      */
     private HashMap<K, HashSet<V>> keyToValues;
     private HashMap<V, K> valueToKey;
