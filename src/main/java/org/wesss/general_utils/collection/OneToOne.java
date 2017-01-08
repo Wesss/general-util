@@ -8,7 +8,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Represents a collection where each key has exactly one value and vice versa
+ * Represents a collection where each key has exactly one value and vice versa.
+ * When duplicate keys or values are added, any previous pairings are overwritten.
  * @param <K> the key type
  * @param <V> the value type
  */
@@ -19,6 +20,10 @@ public class OneToOne<K, V> {
     }
 
     public boolean isEmpty() {
+        throw new NotImplementedException();
+    }
+
+    public int size() {
         throw new NotImplementedException();
     }
 
@@ -38,11 +43,11 @@ public class OneToOne<K, V> {
         throw new NotImplementedException();
     }
 
-    public Set<V> getValues(K key) {
+    public V getValue(K key) {
         throw new NotImplementedException();
     }
 
-    public K getKeys(V value) {
+    public K getKey(V value) {
         throw new NotImplementedException();
     }
 

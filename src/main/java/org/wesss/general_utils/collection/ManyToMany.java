@@ -23,6 +23,13 @@ public class ManyToMany<K, V> {
         throw new NotImplementedException();
     }
 
+    /**
+     * @return the number of key-value pairings present
+     */
+    public int size() {
+        throw new NotImplementedException();
+    }
+
     public boolean containsKey(K key) {
         throw new NotImplementedException();
     }
@@ -43,7 +50,7 @@ public class ManyToMany<K, V> {
         throw new NotImplementedException();
     }
 
-    public K getKeys(V value) {
+    public Set<K> getKeys(V value) {
         throw new NotImplementedException();
     }
 

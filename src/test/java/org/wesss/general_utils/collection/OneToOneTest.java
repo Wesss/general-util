@@ -2,6 +2,9 @@ package org.wesss.general_utils.collection;
 
 import org.junit.Test;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+
 public class OneToOneTest {
 
     private OneToOne<Integer, String> intToString;
@@ -12,6 +15,9 @@ public class OneToOneTest {
 
     @Test
     public void newOneToOneHasNothing() {
-        //TODO test OneToOne
+        assertThat(intToString.size(), is(0));
+        assertThat(intToString.isEmpty(), is(true));
+        assertThat(intToString.containsKey(0), is(false));
+        assertThat(intToString.containsValue(""), is(false));
     }
 }

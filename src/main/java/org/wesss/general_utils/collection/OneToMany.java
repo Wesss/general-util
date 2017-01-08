@@ -1,9 +1,12 @@
 package org.wesss.general_utils.collection;
 
+import org.wesss.general_utils.exceptions.NotImplementedException;
+
 import java.util.*;
 
 /**
- * Represents a collection where each key has several associated values
+ * Represents a collection where each key has several associated values.
+ * When duplicate values are added, previous pairings are overwritten.
  * @param <K> the key type
  * @param <V> the value type
  */
@@ -24,6 +27,13 @@ public class OneToMany<K, V> {
 
     public boolean isEmpty() {
         return keyToValues.isEmpty();
+    }
+
+    /**
+     * @return the number of key-value pairings present
+     */
+    public int size() {
+        throw new NotImplementedException();
     }
 
     public boolean containsKey(K key) {
