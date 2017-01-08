@@ -16,10 +16,11 @@ public class OneToManyTest {
     @Test
     public void newOneToManyHasNothing() {
         assertThat(intToStrings.isEmpty(), is(true));
+        assertThat(intToStrings.size(), is(0));
         assertThat(intToStrings.containsKey(0), is(false));
         assertThat(intToStrings.containsValue("zero"), is(false));
 
-        assertThat(intToStrings.get(0), empty());
+        assertThat(intToStrings.getValues(0), empty());
         assertThat(intToStrings.getKey("zero"), nullValue());
     }
 
@@ -28,10 +29,11 @@ public class OneToManyTest {
         intToStrings.put(0, "zero");
 
         assertThat(intToStrings.isEmpty(), is(false));
+        assertThat(intToStrings.size(), is(1));
         assertThat(intToStrings.containsKey(0), is(true));
         assertThat(intToStrings.containsValue("zero"), is(true));
 
-        assertThat(intToStrings.get(0), contains("zero"));
+        assertThat(intToStrings.getValues(0), contains("zero"));
         assertThat(intToStrings.getKey("zero"), is(0));
     }
 
@@ -41,11 +43,12 @@ public class OneToManyTest {
         intToStrings.put(0, "ZERO");
 
         assertThat(intToStrings.isEmpty(), is(false));
+        assertThat(intToStrings.size(), is(2));
         assertThat(intToStrings.containsKey(0), is(true));
         assertThat(intToStrings.containsValue("zero"), is(true));
         assertThat(intToStrings.containsValue("ZERO"), is(true));
 
-        assertThat(intToStrings.get(0), hasItems("zero", "ZERO"));
+        assertThat(intToStrings.getValues(0), hasItems("zero", "ZERO"));
         assertThat(intToStrings.getKey("zero"), is(0));
         assertThat(intToStrings.getKey("ZERO"), is(0));
     }
@@ -57,12 +60,13 @@ public class OneToManyTest {
         intToStrings.put(1, zero);
 
         assertThat(intToStrings.isEmpty(), is(false));
+        assertThat(intToStrings.size(), is(1));
         assertThat(intToStrings.containsKey(0), is(false));
         assertThat(intToStrings.containsKey(1), is(true));
         assertThat(intToStrings.containsValue("zero"), is(true));
 
-        assertThat(intToStrings.get(1), hasItem("zero"));
-        assertThat(intToStrings.get(0), empty());
+        assertThat(intToStrings.getValues(1), hasItem("zero"));
+        assertThat(intToStrings.getValues(0), empty());
         assertThat(intToStrings.getKey("zero"), is(1));
     }
 
@@ -72,6 +76,7 @@ public class OneToManyTest {
 
         assertThat(removed, is(false));
         assertThat(intToStrings.isEmpty(), is(true));
+        assertThat(intToStrings.size(), is(0));
         assertThat(intToStrings.containsKey(0), is(false));
         assertThat(intToStrings.containsValue("zero"), is(false));
     }
@@ -83,6 +88,7 @@ public class OneToManyTest {
 
         assertThat(removed, is(true));
         assertThat(intToStrings.isEmpty(), is(true));
+        assertThat(intToStrings.size(), is(0));
         assertThat(intToStrings.containsKey(0), is(false));
         assertThat(intToStrings.containsValue("zero"), is(false));
     }
@@ -94,6 +100,7 @@ public class OneToManyTest {
         intToStrings.clear();
 
         assertThat(intToStrings.isEmpty(), is(true));
+        assertThat(intToStrings.size(), is(0));
         assertThat(intToStrings.containsKey(0), is(false));
         assertThat(intToStrings.containsValue("zero"), is(false));
         assertThat(intToStrings.containsValue("ZERO"), is(false));

@@ -59,7 +59,7 @@ public class OneToMany<K, V> {
         return values;
     }
 
-    public Set<V> get(K key) {
+    public Set<V> getValues(K key) {
         Set<V> resultSet = keyToValues.get(key);
         if (resultSet == null) {
             return null;
