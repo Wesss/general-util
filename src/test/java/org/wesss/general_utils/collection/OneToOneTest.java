@@ -35,6 +35,27 @@ public class OneToOneTest {
 
         assertThat(intToString.getValue(0), is("zero"));
         assertThat(intToString.getKey("zero"), is(0));
+
+        assertThat(intToString.valueSet(), hasSize(1));
+        assertThat(intToString.valueSet(), hasItems("zero"));
+        assertThat(intToString.keySet(), hasSize(1));
+        assertThat(intToString.keySet(), hasItems(0));
+    }
+
+    @Test
+    public void multiplePutsAddsMultipleKeyValuePairs() {
+        intToString.put(0, "zero");
+        intToString.put(1, "one");
+
+        assertThat(intToString.getValue(0), is("zero"));
+        assertThat(intToString.getValue(1), is("one"));
+        assertThat(intToString.getKey("zero"), is(0));
+        assertThat(intToString.getKey("one"), is(1));
+
+        assertThat(intToString.valueSet(), hasSize(2));
+        assertThat(intToString.valueSet(), hasItems("zero", "one"));
+        assertThat(intToString.keySet(), hasSize(2));
+        assertThat(intToString.keySet(), hasItems(0, 1));
     }
 
     @Test

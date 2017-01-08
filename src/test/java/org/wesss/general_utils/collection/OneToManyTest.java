@@ -35,6 +35,27 @@ public class OneToManyTest {
 
         assertThat(intToStrings.getValues(0), contains("zero"));
         assertThat(intToStrings.getKey("zero"), is(0));
+
+        assertThat(intToStrings.valueSet(), hasSize(1));
+        assertThat(intToStrings.valueSet(), hasItems("zero"));
+        assertThat(intToStrings.keySet(), hasSize(1));
+        assertThat(intToStrings.keySet(), hasItems(0));
+    }
+
+    @Test
+    public void multiplePutsAddsMultipleKeyValuePairs() {
+        intToStrings.put(0, "zero");
+        intToStrings.put(1, "one");
+
+        assertThat(intToStrings.getValues(0), contains("zero"));
+        assertThat(intToStrings.getValues(1), contains("one"));
+        assertThat(intToStrings.getKey("zero"), is(0));
+        assertThat(intToStrings.getKey("one"), is(1));
+
+        assertThat(intToStrings.valueSet(), hasSize(2));
+        assertThat(intToStrings.valueSet(), hasItems("zero", "one"));
+        assertThat(intToStrings.keySet(), hasSize(2));
+        assertThat(intToStrings.keySet(), hasItems(0, 1));
     }
 
     @Test

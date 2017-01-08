@@ -48,15 +48,8 @@ public class OneToMany<K, V> {
         return keyToValues.keySet();
     }
 
-    /**
-     * Duplicates allowed
-     */
-    public ArrayList<V> values() {
-        ArrayList<V> values = new ArrayList<>();
-        for (K key : keySet()) {
-            values.addAll(keyToValues.get(key));
-        }
-        return values;
+    public Set<V> valueSet() {
+        throw new NotImplementedException();
     }
 
     public Set<V> getValues(K key) {
@@ -97,8 +90,6 @@ public class OneToMany<K, V> {
 
         return wasRemoved;
     }
-
-    //TODO onetomany removeKey
 
     public void clear() {
         keyToValues.clear();
