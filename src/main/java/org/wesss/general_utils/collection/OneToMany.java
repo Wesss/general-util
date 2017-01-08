@@ -33,7 +33,7 @@ public class OneToMany<K, V> {
      * @return the number of key-value pairings present
      */
     public int size() {
-        throw new NotImplementedException();
+        return valueToKey.size();
     }
 
     public boolean containsKey(K key) {
@@ -49,13 +49,13 @@ public class OneToMany<K, V> {
     }
 
     public Set<V> valueSet() {
-        throw new NotImplementedException();
+        return valueToKey.keySet();
     }
 
     public Set<V> getValues(K key) {
         Set<V> resultSet = keyToValues.get(key);
         if (resultSet == null) {
-            return null;
+            return new HashSet<>();
         } else {
             return new HashSet<>(resultSet);
         }
