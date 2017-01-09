@@ -15,59 +15,87 @@ import java.util.Set;
  */
 public class OneToOne<K, V> {
 
-    public OneToOne() {
+    private HashMap<K, V> keyToValue;
+    private HashMap<V, K> valueToKey;
 
+    public OneToOne() {
+        keyToValue = new HashMap<>();
+        valueToKey = new HashMap<>();
     }
 
     public boolean isEmpty() {
-        throw new NotImplementedException();
+        return keyToValue.isEmpty();
     }
 
     public int size() {
-        throw new NotImplementedException();
+        return keyToValue.size();
     }
 
     public boolean containsKey(K key) {
-        throw new NotImplementedException();
+        return keyToValue.containsKey(key);
     }
 
     public boolean containsValue(V value) {
-        throw new NotImplementedException();
+        return valueToKey.containsKey(value);
     }
 
     public Set<K> keySet() {
-        throw new NotImplementedException();
+        return keyToValue.keySet();
     }
 
     public Set<V> valueSet() {
-        throw new NotImplementedException();
+        return valueToKey.keySet();
     }
 
     public V getValue(K key) {
-        throw new NotImplementedException();
+        return keyToValue.get(key);
     }
 
     public K getKey(V value) {
-        throw new NotImplementedException();
+        return valueToKey.get(value);
     }
 
     public void put(K key, V value) {
-        throw new NotImplementedException();
+        removeKey(key);
+        removeValue(value);
+
+        keyToValue.put(key, value);
+        valueToKey.put(value, key);
     }
 
     public boolean remove(K key, V value) {
-        throw new NotImplementedException();
+        if (!keyToValue.containsKey(key) || !valueToKey.containsKey(value)) {
+            return false;
+        }
+
+        keyToValue.remove(key);
+        valueToKey.remove(value);
+        return true;
     }
 
+    // TODO test these endpoints
     public boolean removeKey(K key) {
-        throw new NotImplementedException();
+        if (!keyToValue.containsKey(key)) {
+            return false;
+        }
+
+        valueToKey.remove(keyToValue.get(key));
+        keyToValue.remove(key);
+        return true;
     }
 
     public boolean removeValue(V value) {
-        throw new NotImplementedException();
+        if (!valueToKey.containsKey(value)) {
+            return false;
+        }
+
+        keyToValue.remove(valueToKey.get(value));
+        valueToKey.remove(value);
+        return true;
     }
 
     public void clear() {
-        throw new NotImplementedException();
+        keyToValue.clear();
+        valueToKey.clear();
     }
 }

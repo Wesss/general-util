@@ -15,7 +15,6 @@ public class OneToMany<K, V> {
     /*
      * For every (K, V) pair present:
      *      V must be the only unique V
-     * TODO enforce unique values
      */
     private HashMap<K, HashSet<V>> keyToValues;
     private HashMap<V, K> valueToKey;
@@ -66,9 +65,7 @@ public class OneToMany<K, V> {
     }
 
     public void put(K key, V value) {
-        if (valueToKey.keySet().contains(value)) {
-            remove(valueToKey.get(value), value);
-        }
+        removeValue(value);
 
         if (!keyToValues.containsKey(key))
             keyToValues.put(key, new HashSet<>());
@@ -89,6 +86,34 @@ public class OneToMany<K, V> {
         }
 
         return wasRemoved;
+    }
+
+    // TODO test these endpoints
+    public boolean removeKey(K key) {
+        if (!keyToValues.containsKey(key)) {
+            return false;
+        }
+
+        for (V value : keyToValues.get(key)) {
+            valueToKey.remove(value);
+        }
+        keyToValues.remove(key);
+        return true;
+    }
+
+    public boolean removeValue(V value) {
+        if (!valueToKey.containsKey(value)) {
+            return false;
+        }
+
+        K key = valueToKey.get(value);
+        keyToValues.get(key).remove(value);
+        if (keyToValues.get(key).isEmpty()) {
+            keyToValues.remove(key);
+        }
+
+        valueToKey.remove(value);
+        return true;
     }
 
     public void clear() {
