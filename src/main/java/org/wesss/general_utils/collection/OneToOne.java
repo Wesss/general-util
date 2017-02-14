@@ -69,7 +69,6 @@ public class OneToOne<K, V> {
         return true;
     }
 
-    // TODO test these endpoints
     public boolean removeKey(K key) {
         if (!keyToValue.containsKey(key)) {
             return false;

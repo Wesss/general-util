@@ -88,7 +88,6 @@ public class OneToMany<K, V> {
         return wasRemoved;
     }
 
-    // TODO test these endpoints
     public boolean removeKey(K key) {
         if (!keyToValues.containsKey(key)) {
             return false;

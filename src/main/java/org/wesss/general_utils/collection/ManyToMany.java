@@ -15,6 +15,8 @@ import java.util.Set;
  */
 public class ManyToMany<K, V> {
 
+    // TODO hamcrest matchers for these utility collections?
+
     public ManyToMany() {
 
     }
