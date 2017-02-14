@@ -129,6 +129,19 @@ public class OneToManyTest {
     }
 
     @Test
+    public void removeMismatchedKeyValuePairDoesNothing() {
+        intToStrings.put(0, "zero");
+        intToStrings.put(1, "one");
+        boolean removed = intToStrings.remove(1, "zero");
+
+        assertThat(removed, is(false));
+        assertThat(intToStrings.isEmpty(), is(false));
+        assertThat(intToStrings.size(), is(2));
+        assertThat(intToStrings.getValues(0), hasItems("zero"));
+        assertThat(intToStrings.getValues(1), hasItems("one"));
+    }
+
+    @Test
     public void removeKeyRemovesManyKeyValuePairs() {
         intToStrings.put(0, "zero");
         intToStrings.put(0, "ZERO");

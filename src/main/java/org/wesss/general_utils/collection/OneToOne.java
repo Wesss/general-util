@@ -60,7 +60,8 @@ public class OneToOne<K, V> {
     }
 
     public boolean remove(K key, V value) {
-        if (!keyToValue.containsKey(key) || !valueToKey.containsKey(value)) {
+        V storedValue = keyToValue.get(key);
+        if (storedValue == null || !storedValue.equals(value)) {
             return false;
         }
 
@@ -74,8 +75,7 @@ public class OneToOne<K, V> {
             return false;
         }
 
-        valueToKey.remove(keyToValue.get(key));
-        keyToValue.remove(key);
+        remove(key, keyToValue.get(key));
         return true;
     }
 
@@ -84,8 +84,7 @@ public class OneToOne<K, V> {
             return false;
         }
 
-        keyToValue.remove(valueToKey.get(value));
-        valueToKey.remove(value);
+        remove(valueToKey.get(value), value);
         return true;
     }
 

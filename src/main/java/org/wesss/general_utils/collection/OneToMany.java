@@ -15,6 +15,8 @@ public class OneToMany<K, V> {
     /*
      * For every (K, V) pair present:
      *      V must be the only unique V
+     *
+     * No empty sets are contained within the maps
      */
     private HashMap<K, HashSet<V>> keyToValues;
     private HashMap<V, K> valueToKey;
@@ -75,17 +77,18 @@ public class OneToMany<K, V> {
     }
 
     public boolean remove(K key, V value) {
-        if (!keyToValues.containsKey(key)) {
+        Set<V> storedValues = keyToValues.get(key);
+        if (storedValues == null || !storedValues.contains(value)) {
             return false;
         }
 
         valueToKey.remove(value);
-        boolean wasRemoved = keyToValues.get(key).remove(value);
+        keyToValues.get(key).remove(value);
         if (keyToValues.get(key).isEmpty()) {
             keyToValues.remove(key);
         }
 
-        return wasRemoved;
+        return true;
     }
 
     public boolean removeKey(K key) {
@@ -93,10 +96,10 @@ public class OneToMany<K, V> {
             return false;
         }
 
-        for (V value : keyToValues.get(key)) {
-            valueToKey.remove(value);
+        Set<V> values = getValues(key);
+        for (V value : values) {
+            remove(key, value);
         }
-        keyToValues.remove(key);
         return true;
     }
 
@@ -105,13 +108,7 @@ public class OneToMany<K, V> {
             return false;
         }
 
-        K key = valueToKey.get(value);
-        keyToValues.get(key).remove(value);
-        if (keyToValues.get(key).isEmpty()) {
-            keyToValues.remove(key);
-        }
-
-        valueToKey.remove(value);
+        remove(valueToKey.get(value), value);
         return true;
     }
 

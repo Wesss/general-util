@@ -115,6 +115,19 @@ public class OneToOneTest {
     }
 
     @Test
+    public void removeMismatchedKeyValuePairDoesNothing() {
+        intToString.put(0, "zero");
+        intToString.put(1, "one");
+        boolean removed = intToString.remove(1, "zero");
+
+        assertThat(removed, is(false));
+        assertThat(intToString.isEmpty(), is(false));
+        assertThat(intToString.size(), is(2));
+        assertThat(intToString.getValue(0), is("zero"));
+        assertThat(intToString.getValue(1), is("one"));
+    }
+
+    @Test
     public void removeKeyRemovesKeyValuePair() {
         intToString.put(0, "zero");
         boolean removed = intToString.removeKey(0);
