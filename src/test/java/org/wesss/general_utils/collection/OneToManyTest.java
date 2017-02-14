@@ -115,6 +115,48 @@ public class OneToManyTest {
     }
 
     @Test
+    public void removeRemovesOnlyOneKeyValuePair() {
+        intToStrings.put(0, "zero");
+        intToStrings.put(0, "ZERO");
+        boolean removed = intToStrings.remove(0, "zero");
+
+        assertThat(removed, is(true));
+        assertThat(intToStrings.isEmpty(), is(false));
+        assertThat(intToStrings.size(), is(1));
+        assertThat(intToStrings.containsKey(0), is(true));
+        assertThat(intToStrings.containsValue("zero"), is(false));
+        assertThat(intToStrings.containsValue("ZERO"), is(true));
+    }
+
+    @Test
+    public void removeKeyRemovesManyKeyValuePairs() {
+        intToStrings.put(0, "zero");
+        intToStrings.put(0, "ZERO");
+        boolean removed = intToStrings.removeKey(0);
+
+        assertThat(removed, is(true));
+        assertThat(intToStrings.isEmpty(), is(true));
+        assertThat(intToStrings.size(), is(0));
+        assertThat(intToStrings.containsKey(0), is(false));
+        assertThat(intToStrings.containsValue("zero"), is(false));
+        assertThat(intToStrings.containsValue("ZERO"), is(false));
+    }
+
+    @Test
+    public void removeValueRemovesKeyValuePair() {
+        intToStrings.put(0, "zero");
+        intToStrings.put(0, "ZERO");
+        boolean removed = intToStrings.removeValue("zero");
+
+        assertThat(removed, is(true));
+        assertThat(intToStrings.isEmpty(), is(false));
+        assertThat(intToStrings.size(), is(1));
+        assertThat(intToStrings.containsKey(0), is(true));
+        assertThat(intToStrings.containsValue("zero"), is(false));
+        assertThat(intToStrings.containsValue("ZERO"), is(true));
+    }
+
+    @Test
     public void clearClearsAllKeyValuePairs() {
         intToStrings.put(0, "zero");
         intToStrings.put(0, "ZERO");

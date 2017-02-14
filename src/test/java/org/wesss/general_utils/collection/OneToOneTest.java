@@ -115,6 +115,30 @@ public class OneToOneTest {
     }
 
     @Test
+    public void removeKeyRemovesKeyValuePair() {
+        intToString.put(0, "zero");
+        boolean removed = intToString.removeKey(0);
+
+        assertThat(removed, is(true));
+        assertThat(intToString.isEmpty(), is(true));
+        assertThat(intToString.size(), is(0));
+        assertThat(intToString.containsKey(0), is(false));
+        assertThat(intToString.containsValue("zero"), is(false));
+    }
+
+    @Test
+    public void removeValueRemovesKeyValuePair() {
+        intToString.put(0, "zero");
+        boolean removed = intToString.removeValue("zero");
+
+        assertThat(removed, is(true));
+        assertThat(intToString.isEmpty(), is(true));
+        assertThat(intToString.size(), is(0));
+        assertThat(intToString.containsKey(0), is(false));
+        assertThat(intToString.containsValue("zero"), is(false));
+    }
+
+    @Test
     public void clearClearsAllKeyValuePairs() {
         intToString.put(0, "zero");
         intToString.put(0, "ZERO");
