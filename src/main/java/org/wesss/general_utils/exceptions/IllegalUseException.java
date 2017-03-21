@@ -5,4 +5,11 @@ package org.wesss.general_utils.exceptions;
  */
 public class IllegalUseException extends RuntimeException {
 
+    public IllegalUseException() {
+        super();
+    }
+
+    public IllegalUseException(String message) {
+        super(message);
+    }
 }
