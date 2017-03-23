@@ -1,7 +1,6 @@
 package org.wesss.general_utils.reflection;
 
-import org.junit.internal.runners.model.ReflectiveCallable;
-
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
@@ -24,11 +23,16 @@ public class ObjectMirror {
      * @throws Throwable
      */
     public Object call(Method method, Object... params) throws Throwable {
-        return new ReflectiveCallable() {
-            @Override
-            protected Object runReflectiveCall() throws Throwable {
-                return method.invoke(object, params);
-            }
-        }.run();
+        try {
+            return method.invoke(object, params);
+        } catch (InvocationTargetException e) {
+            throw e.getTargetException();
+        }
+//        return new ReflectiveCallable() {
+//            @Override
+//            protected Object runReflectiveCall() throws Throwable {
+//                return method.invoke(object, params);
+//            }
+//        }.run();
     }
 }
